@@ -2,6 +2,10 @@ function getHole(index) {
     return document.getElementById(`hole${index}`)
 }
 
+let setStock = () => {
+    dead.textContent = stock;
+    lost.textContent = stock;
+}
 let stock = 0;
 const dead = document.getElementById('dead');
 const lost = document.getElementById('lost');
@@ -11,15 +15,13 @@ for (let i = 1; i < 10; i++) {
             dead.textContent++
             if (dead.textContent == 10) {
                 alert('Победа =)')
-                dead.textContent = stock;
-                lost.textContent = stock;
+                setStock()
             }
         } else {
             lost.textContent++
             if (lost.textContent == 5) {
                 alert('Вы проиграли =(')
-                dead.textContent = stock;
-                lost.textContent = stock;
+                setStock()
             }
         }
     }
