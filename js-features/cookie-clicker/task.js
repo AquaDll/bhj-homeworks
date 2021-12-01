@@ -13,12 +13,8 @@ cookie.onclick = function() {
     count +=1;
     timeFirst = new Date().getTime()
     clicksAdd.innerHTML = count;
-    if (cookie.width === minus) {
-        cookie.width = plus;
-    } else {
-        cookie.width = minus;
-        timeSecond = new Date().getTime()
-    }
+   cookie.width = count % 2 ? 250 : 200;
+    timeSecond = new Date().getTime()
     clickSpeed.textContent = 1 / ((timeFirst - timeSecond) / 1000);
     // Тут что-то еще будет...
 }
