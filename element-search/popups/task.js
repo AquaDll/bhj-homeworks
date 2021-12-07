@@ -5,9 +5,8 @@ modal_main.classList.add('modal_active')
 const modal__close = document.getElementsByClassName('modal__close');
 const modal_success = document.getElementById('modal_success');
 for (let i = 0; i < modal__close.length; i++) {
-    modal__close.item(i).onclick = () => {
-        modal_main.classList.remove('modal_active');
-        modal_success.classList.remove('modal_active');
+     modal__close.item(i).onclick  = function(){
+        this.closest('.modal').classList.remove('modal_active');
     };
 }
 // Красный -> Зеленый
