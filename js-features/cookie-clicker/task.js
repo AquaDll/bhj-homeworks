@@ -11,11 +11,11 @@ let seconds = time.getSeconds()
 cookie.onclick = function() {
     //Счетчик
     count +=1;
-    timeFirst = new Date().getTime()
+    //timeFirst = new Date().getTime()
     clicksAdd.innerHTML = count;
    cookie.width = count % 2 ? 250 : 200;
-    timeSecond = new Date().getTime()
-    clickSpeed.textContent = 1 / ((timeFirst - timeSecond) / 1000);
+    //timeSecond = new Date().getTime()
+        //clickSpeed.textContent = 1 / ((timeFirst - timeSecond) / 1000);
     // Тут что-то еще будет...
 }
 

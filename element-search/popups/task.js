@@ -17,8 +17,8 @@ console.log(arr)
 let closeElement = links.item(1)
 console.log(closeElement)
 closeElement.onclick = () => {
-    closeElement.classList.add('btn_success')
-    closeElement.innerHTML = 'Хорошо сделано!'
+    modal_main.classList.remove('modal_active')
+    modal_success.classList.add('modal_active')
 }
 
 
