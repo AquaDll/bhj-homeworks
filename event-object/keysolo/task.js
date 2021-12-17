@@ -32,20 +32,9 @@ function stopTimer() {
 
 function newWord() {
     const words = [
-        'bob',
-        'awesome',
-        'netology',
-        'hello',
-        'Россия',
-        'kitty',
-        'rock',
-        'youtube',
-        'Hello дружок',
-        'popcorn',
-        'cinema',
-        'я люблю kitkat',
-        'love',
-        'javascript'
+        'Тест',
+        'Test',
+        'TestРусский'
     ];
     const index = Math.floor(Math.random() * words.length);
     const word = words[index].toLowerCase();
