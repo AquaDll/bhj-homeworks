@@ -1,90 +1,100 @@
-class Game {
-  constructor(container) {
-    this.container = container;
-    this.wordElement = container.querySelector('.word');
-    this.winsElement = container.querySelector('.status__wins');
-    this.lossElement = container.querySelector('.status__loss');
+const wordSymbols = document.querySelector('.word');
+const statusWin = document.querySelector('.status__wins');
+const statusLoss = document.querySelector('.status__loss');
+const statusTime = document.querySelector('.status__time')
+let currentSymbol = '';
+let timerId;
 
-    this.reset();
+function restart() {
+    statusWin.textContent = 0;
+    statusLoss.textContent = 0;
+    alert('START');
+    stopTimer();
+    newWord();
+    return timer();
+}
 
-    this.registerEvents();
-  }
+function setStatusTime() {
+    if (+statusTime.textContent !== 0) {
+        statusTime.textContent -= 1;
+    } else {
+        return fail();
+    };
+}
 
-  reset() {
-    this.setNewWord();
-    this.winsElement.textContent = 0;
-    this.lossElement.textContent = 0;
-  }
+function timer() {
+    return timerId = setInterval(setStatusTime, 1000);
+}
 
-  registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-     */
-  }
+function stopTimer() {
+    return clearInterval(timerId);
+}
 
-  success() {
-    this.currentSymbol.classList.add('symbol_correct');
-    this.currentSymbol = this.currentSymbol.nextElementSibling;
-    if (this.currentSymbol !== null) {
-      return;
-    }
-
-    if (++this.winsElement.textContent === 10) {
-      alert('Победа!');
-      this.reset();
-    }
-    this.setNewWord();
-  }
-
-  fail() {
-    if (++this.lossElement.textContent === 5) {
-      alert('Вы проиграли!');
-      this.reset();
-    }
-    this.setNewWord();
-  }
-
-  setNewWord() {
-    const word = this.getWord();
-
-    this.renderWord(word);
-  }
-
-  getWord() {
+function newWord() {
     const words = [
         'bob',
         'awesome',
         'netology',
         'hello',
+        'Россия',
         'kitty',
         'rock',
         'youtube',
+        'Hello дружок',
         'popcorn',
         'cinema',
+        'я люблю kitkat',
         'love',
         'javascript'
-      ],
-      index = Math.floor(Math.random() * words.length);
+    ];
+    const index = Math.floor(Math.random() * words.length);
+    const word = words[index].toLowerCase();
+    wordSymbols.innerHTML = [...word]
+        .map((s, i) =>
+            `<span class="symbol ${i === 0 ? 'symbol_current' : ''}">${s}</span>`
+        )
+        .join('');
+    statusTime.textContent = document.getElementsByClassName('symbol').length;
+    return currentSymbol = wordSymbols.querySelector('.symbol_current');
+};
 
-    return words[index];
-  }
+document.addEventListener('keyup', (e) => {
+    if (e.key === 'Alt' && e.key === 'Shift' && e.key === 'Control') {
+        return;
+    } else if (e.key === 'Alt' || e.key === 'Shift' || e.key === 'Control') {
+        return;
+    } else if (e.key.toLowerCase() === currentSymbol.textContent) {
+        return success();
+    } else {
+        return fail();
+    }
+});
 
-  renderWord(word) {
-    const html = [...word]
-      .map(
-        (s, i) =>
-          `<span class="symbol ${i === 0 ? 'symbol_current': ''}">${s}</span>`
-      )
-      .join('');
-    this.wordElement.innerHTML = html;
 
-    this.currentSymbol = this.wordElement.querySelector('.symbol_current');
-  }
+function success() {
+    currentSymbol.classList.add('symbol_correct');
+    currentSymbol = currentSymbol.nextElementSibling;
+    if (currentSymbol !== null) {
+        return;
+    }
+
+    if (++statusWin.textContent === 10) {
+        alert('Победа!');
+        return restart();
+    }
+    stopTimer();
+    newWord();
+    return timer();
 }
 
-new Game(document.getElementById('game'))
+function fail() {
+    if (++statusLoss.textContent === 5) {
+        alert('Вы проиграли!');
+        return restart();
+    }
+    stopTimer();
+    newWord();
+    return timer();
+}
 
+restart();
