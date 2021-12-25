@@ -1,44 +1,44 @@
-const slider__item = Array.from(document.getElementsByClassName('slider__item'));
+const arrayItem = Array.from(document.getElementsByClassName('slider__item'));
 const arrowLeft = document.getElementsByClassName('slider__arrow_prev');
 const arrowRight = document.getElementsByClassName('slider__arrow_next');
-const slider__dot = Array.from(document.getElementsByClassName('slider__dot'));
-let value = 0;
+const arrayDots = Array.from(document.getElementsByClassName('slider__dot'));
+let n = 0;
 
-slider__dot[value].classList.add('slider__dot_active');
+arrayDots[n].classList.add('slider__dot_active');
 
-function slideImg(i) {
-    slider__item.forEach((e, i) => {
+function slideImg(arg) {
+    arrayItem.forEach((e, i) => {
         if (e.classList.contains('slider__item_active')) {
-            slider__dot[i].classList.remove('slider__dot_active');
+            arrayDots[i].classList.remove('slider__dot_active');
             return e.classList.remove('slider__item_active');
         }
     })
-    slider__dot[i].classList.add('slider__dot_active');
-    return slider__item[i].classList.add('slider__item_active');
+    arrayDots[arg].classList.add('slider__dot_active');
+    return arrayItem[arg].classList.add('slider__item_active');
 }
 
 arrowLeft[0].onclick = function() {
-    if (value === 0) {
-        value = 4;
-        return slideImg(value);
-    } else if (value !== 0) {
-        value -= 1;
-        return slideImg(value);
+    if (n === 0) {
+        n = 4;
+        return slideImg(n);
+    } else if (n !== 0) {
+        n -= 1;
+        return slideImg(n);
     }
 }
 arrowRight[0].onclick = function() {
-    if (value < 4) {
-        value += 1;
-        return slideImg(value);
-    } else if (value === 4) {
-        value = 0;
-        return slideImg(value);
+    if (n < 4) {
+        n += 1;
+        return slideImg(n);
+    } else if (n === 4) {
+        n = 0;
+        return slideImg(n);
     }
 }
-for (let i = 0; i < slider__dot.length; i++) {
-    slider__dot[i].onclick = function() {
+for (let i = 0; i < arrayDots.length; i++) {
+    arrayDots[i].onclick = function() {
         slideImg(i);
-        slider__dot[i].classList.add('slider__dot_active');
-        return slider__item[i].classList.add('slider__item_active');
+        arrayDots[i].classList.add('slider__dot_active');
+        return arrayItem[i].classList.add('slider__item_active');
     }
 }
